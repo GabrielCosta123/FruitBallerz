@@ -130,6 +130,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         print("update called")
+        print("Ballerz")
         if currentTime - lastSpawnTime > spawnInterval {
                 spawnRandomFruit()
                 lastSpawnTime = currentTime
