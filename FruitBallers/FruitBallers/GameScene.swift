@@ -14,11 +14,32 @@ class GameScene: SKScene {
     private var spinnyNode : SKShapeNode?
     private var lastSpawnTime: TimeInterval = 0
     private let spawnInterval: TimeInterval = 1.0
+    private var score = 0
+    private var scoreLabel: SKLabelNode!
+    private var lives = 3
+    private var livesLabel: SKLabelNode!
+
     
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
         
-            
+        scoreLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        scoreLabel.fontSize = 24
+        scoreLabel.fontColor = .white
+        scoreLabel.position = CGPoint(x: frame.width - 380, y: frame.height - 50)
+        scoreLabel.horizontalAlignmentMode = .left
+        scoreLabel.text = "Score: \(score)"
+        addChild(scoreLabel)
+        
+        livesLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        livesLabel.fontSize = 24
+        livesLabel.fontColor = .red
+        livesLabel.position = CGPoint(x: frame.width - 35, y: frame.height - 50)
+        livesLabel.horizontalAlignmentMode = .right
+        livesLabel.text = "Lives: \(lives)"
+        addChild(livesLabel)
+
+
     }
         
     func spawnRandomFruit() {
@@ -64,6 +85,31 @@ class GameScene: SKScene {
         fruit.launch(from: position, with: velocity)
         addChild(fruit)
     }
+    
+    func addScore(_ points: Int = 1) {
+        score += points
+        scoreLabel.text = "Score: \(score)"
+    }
+    
+    func loseLife() {
+        lives -= 1
+        livesLabel.text = "Lives: \(lives)"
+
+        if lives <= 0 {
+            gameOver()
+        }
+    }
+    
+    func gameOver() {
+        let gameOverLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        gameOverLabel.fontSize = 50
+        gameOverLabel.fontColor = .white
+        gameOverLabel.text = "Game Over"
+        gameOverLabel.position = CGPoint(x: frame.midX, y: frame.midY)
+        addChild(gameOverLabel)
+
+        isPaused = true
+    }
 
 
     func touchDown(atPoint pos : CGPoint) {
@@ -97,9 +143,12 @@ class GameScene: SKScene {
         nodes(at: location).forEach { node in
             if node.name == "fruit" {
                 node.removeFromParent()
-                // play sound or animation
+                addScore(1)
             }
         }
+        
+        
+
     }
 
     func touchUp(atPoint pos : CGPoint) {
@@ -130,11 +179,17 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         print("update called")
-        print("Ballerz")
         if currentTime - lastSpawnTime > spawnInterval {
                 spawnRandomFruit()
                 lastSpawnTime = currentTime
         }
+        for node in children {
+            if node.name == "fruit" && node.position.y < -150 {
+                node.removeFromParent()
+                loseLife()
+            }
+        }
+
     }
 }
 
