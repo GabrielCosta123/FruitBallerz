@@ -13,6 +13,8 @@ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     
+    private var gameStartTime: TimeInterval = 0
+    
     private var lastSpawnTime: TimeInterval = 0
     private var spawnInterval : TimeInterval = 1.0
     
@@ -28,6 +30,8 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
+        
+        gameStartTime = CACurrentMediaTime()
         
         scoreLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         scoreLabel.fontSize = 24
@@ -72,16 +76,16 @@ class GameScene: SKScene {
             let startY = CGFloat.random(in: screenHeight / 2 ... screenHeight - 200)
             position = CGPoint(x: -100, y: startY)
             velocity = CGVector(
-                dx: CGFloat.random(in: 500...800),
-                dy: CGFloat.random(in: 100...300)
+                dx: CGFloat.random(in: 400...600),
+                dy: CGFloat.random(in: 80...200)
             )
 
         case 2: // Spawn da direita
             let startY = CGFloat.random(in: screenHeight / 2 ... screenHeight - 200)
             position = CGPoint(x: screenWidth + 100, y: startY)
             velocity = CGVector(
-                dx: CGFloat.random(in: -800 ... -500),
-                dy: CGFloat.random(in: 100...300)
+                dx: CGFloat.random(in: -600 ... -400),
+                dy: CGFloat.random(in: 80...200)
             )
 
         default:
@@ -136,7 +140,7 @@ class GameScene: SKScene {
 
             bomb.position = position
 
-            let physicsBody = SKPhysicsBody(circleOfRadius: bomb.size.width / 2)
+            let physicsBody = SKPhysicsBody(circleOfRadius: size.width * 0.15)
             physicsBody.categoryBitMask = PhysicsCategory.bomb
             physicsBody.collisionBitMask = PhysicsCategory.none
             physicsBody.contactTestBitMask = PhysicsCategory.blade
@@ -246,23 +250,20 @@ class GameScene: SKScene {
     
     
     override func update(_ currentTime: TimeInterval) {
-        if score >= 40 {
-            spawnInterval = 0.5
-        } else if score >= 30 {
-            spawnInterval = 0.6
-        } else if score >= 20 {
-            spawnInterval = 0.8
-        } else {
-            spawnInterval = 1.0
-        }
+        let elapsedTime = CACurrentMediaTime() - gameStartTime
+        
+        spawnInterval = max(1.5 - (elapsedTime / 5.0) * 0.2, 0.4)
+    
         if currentTime - lastSpawnTime > spawnInterval {
             spawnRandomFruit()
             lastSpawnTime = currentTime
         }
-        if currentTime - lastBombSpawnTime > bombSpawnInterval {
+        if elapsedTime > 10,
+               currentTime - lastBombSpawnTime > bombSpawnInterval {
                 spawnBomb()
                 lastBombSpawnTime = currentTime
             }
+        
         for node in children {
             if node.name == "fruit" && node.position.y < -150 {
                 node.removeFromParent()

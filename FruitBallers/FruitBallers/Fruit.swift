@@ -40,7 +40,7 @@ class Fruit: SKSpriteNode {
     }
     
     private func setupPhysics() {
-        self.physicsBody = SKPhysicsBody(circleOfRadius: size.width / 2)
+        self.physicsBody = SKPhysicsBody(circleOfRadius: size.width * 0.25)
         self.physicsBody?.categoryBitMask = PhysicsCategory.fruit
         self.physicsBody?.collisionBitMask = PhysicsCategory.none
         self.physicsBody?.contactTestBitMask = PhysicsCategory.blade

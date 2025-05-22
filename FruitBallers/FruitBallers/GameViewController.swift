@@ -18,6 +18,7 @@ class GameViewController: UIViewController {
             let scene = GameScene(size: view.bounds.size) // <-- Use your GameScene class
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
+            view.showsPhysics = true
             
             view.ignoresSiblingOrder = true
             view.showsFPS = true
