@@ -29,9 +29,16 @@ class GameScene: SKScene {
 
     
     override func didMove(to view: SKView) {
-        self.backgroundColor = .black
         
+        let background = SKSpriteNode(imageNamed: "woodBackground")
+        background.position = CGPoint(x: frame.midX, y: frame.midY)
+        background.size = self.size
+        background.zPosition = -1
+        addChild(background)
+            
+        self.backgroundColor = .black
         gameStartTime = CACurrentMediaTime()
+        
         
         scoreLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
         scoreLabel.fontSize = 24
