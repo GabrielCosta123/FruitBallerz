@@ -26,6 +26,10 @@ class GameScene: SKScene {
     
     private var lives = 3
     private var livesLabel: SKLabelNode!
+    
+    /*
+    private var powerUpActive = false
+    private var powerUpEndTime: TimeInterval = 0*/
 
     
     override func didMove(to view: SKView) {
@@ -160,6 +164,27 @@ class GameScene: SKScene {
         
         addChild(bomb)
     }
+    /*
+    func spawnPowerUp() {
+        let powerUp = SKSpriteNode(imageNamed: "powerup") // Your image asset
+        powerUp.name = "powerup"
+        powerUp.setScale(0.5)
+
+        let screenWidth = frame.width
+        let startX = CGFloat.random(in: 100...screenWidth - 100)
+        powerUp.position = CGPoint(x: startX, y: -100)
+
+        let physicsBody = SKPhysicsBody(circleOfRadius: powerUp.size.width / 2)
+        physicsBody.affectedByGravity = true
+        physicsBody.velocity = CGVector(dx: CGFloat.random(in: -100...100), dy: CGFloat.random(in: 1000...1300))
+        physicsBody.linearDamping = 0
+        physicsBody.categoryBitMask = PhysicsCategory.none
+        physicsBody.collisionBitMask = PhysicsCategory.none
+        physicsBody.contactTestBitMask = PhysicsCategory.blade
+
+        powerUp.physicsBody = physicsBody
+        addChild(powerUp)
+    }*/
 
     func addScore(_ points: Int = 1) {
         score += points
@@ -174,6 +199,19 @@ class GameScene: SKScene {
             gameOver()
         }
     }
+    
+    /*func activatePowerUp() {
+        powerUpActive = true
+        powerUpEndTime = CACurrentMediaTime() + 15
+
+        let label = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+        label.name = "powerUpLabel"
+        label.text = "Power-Up: x2 Score!"
+        label.fontSize = 24
+        label.fontColor = .yellow
+        label.position = CGPoint(x: frame.midX, y: frame.height - 80)
+        addChild(label)
+    }*/
     
     func gameOver() {
         let gameOverLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
@@ -214,7 +252,6 @@ class GameScene: SKScene {
         let sequence = SKAction.sequence([fadeOut, remove])
         swipeLine.run(sequence)
 
-        // Check for fruit hit
         nodes(at: location).forEach { node in
             if node.name == "fruit" {
                 node.removeFromParent()
@@ -223,7 +260,13 @@ class GameScene: SKScene {
                 node.removeFromParent()
                 loseLife()
                 addScore(-3)
-            }
+                /*if !powerUpActive {
+            
+                }*/
+            }/*else if node.name == "powerUp" {
+                node.removeFromParent()
+                activatePowerUp()
+            }*/
         }
         
         
@@ -269,7 +312,16 @@ class GameScene: SKScene {
                currentTime - lastBombSpawnTime > bombSpawnInterval {
                 spawnBomb()
                 lastBombSpawnTime = currentTime
-            }
+        }
+        /*
+        if powerUpActive && CACurrentMediaTime() > powerUpEndTime {
+            powerUpActive = false
+            childNode(withName: "powerUpLabel")?.removeFromParent()
+        }
+        
+        if Int.random(in: 0...10) == 0 {
+            spawnPowerUp()
+        }*/
         
         for node in children {
             if node.name == "fruit" && node.position.y < -150 {
