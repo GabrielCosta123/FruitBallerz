@@ -12,4 +12,5 @@ struct PhysicsCategory {
     static let fruit: UInt32 = 0x1 << 0
     static let blade: UInt32 = 0x1 << 1
     static let bomb: UInt32 = 0x1 << 2
+    static let powerUp: UInt32 = 0x1 << 3
 }
