@@ -57,7 +57,7 @@ class StartScene: SKScene {
 
     // Função para iniciar a música de fundo
     func playBackgroundMusic() {
-        if let url = Bundle.main.url(forResource: "backgroundMusic", withExtension: "mp3") {
+        if let url = Bundle.main.url(forResource: "Music", withExtension: "mp3") {
             do {
                 backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
                 backgroundMusicPlayer?.numberOfLoops = -1 // Toca indefinidamente
