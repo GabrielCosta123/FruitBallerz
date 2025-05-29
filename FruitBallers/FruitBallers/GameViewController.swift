@@ -15,17 +15,17 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as? SKView {
-            let scene = GameScene(size: view.bounds.size) // <-- Use your GameScene class
+            // Inicia com a tela de início (StartScene)
+            let scene = StartScene(size: view.bounds.size)
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
-            view.showsPhysics = true
             
+            view.showsPhysics = true
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
         }
     }
-
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
