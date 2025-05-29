@@ -27,9 +27,12 @@ class GameScene: SKScene {
     private var lives = 3
     private var livesLabel: SKLabelNode!
     
-    /*
+    
     private var powerUpActive = false
-    private var powerUpEndTime: TimeInterval = 0*/
+    private var powerUpEndTime: TimeInterval = 0
+    
+    private var lastPowerUpSpawnTime: TimeInterval = 0
+    private var powerUpSpawnInterval: TimeInterval = 15.0
 
     
     override func didMove(to view: SKView) {
@@ -164,10 +167,10 @@ class GameScene: SKScene {
         
         addChild(bomb)
     }
-    /*
+    
     func spawnPowerUp() {
-        let powerUp = SKSpriteNode(imageNamed: "powerup") // Your image asset
-        powerUp.name = "powerup"
+        let powerUp = SKSpriteNode(imageNamed: "powerUp") // Your image asset
+        powerUp.name = "powerUp"
         powerUp.setScale(0.5)
 
         let screenWidth = frame.width
@@ -184,7 +187,7 @@ class GameScene: SKScene {
 
         powerUp.physicsBody = physicsBody
         addChild(powerUp)
-    }*/
+    }
 
     func addScore(_ points: Int = 1) {
         score += points
@@ -200,18 +203,20 @@ class GameScene: SKScene {
         }
     }
     
-    /*func activatePowerUp() {
-        powerUpActive = true
-        powerUpEndTime = CACurrentMediaTime() + 15
+    func activatePowerUp() {
+        guard !powerUpActive else { return }
 
-        let label = SKLabelNode(fontNamed: "ArialRoundedMTBold")
-        label.name = "powerUpLabel"
-        label.text = "Power-Up: x2 Score!"
-        label.fontSize = 24
-        label.fontColor = .yellow
-        label.position = CGPoint(x: frame.midX, y: frame.height - 80)
-        addChild(label)
-    }*/
+            powerUpActive = true
+            powerUpEndTime = CACurrentMediaTime() + 15
+
+            let label = SKLabelNode(fontNamed: "ArialRoundedMTBold")
+            label.name = "powerUp"
+            label.text = "Power-Up: x2 Score!"
+            label.fontSize = 24
+            label.fontColor = .yellow
+            label.position = CGPoint(x: frame.midX, y: frame.height - 80)
+            addChild(label)
+    }
     
     func gameOver() {
         let gameOverLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
@@ -255,18 +260,20 @@ class GameScene: SKScene {
         nodes(at: location).forEach { node in
             if node.name == "fruit" {
                 node.removeFromParent()
-                addScore(1)
+                let points = powerUpActive ? 2 : 1
+                addScore(points)
             }else if node.name == "bomb"{
                 node.removeFromParent()
-                loseLife()
-                addScore(-3)
-                /*if !powerUpActive {
-            
-                }*/
-            }/*else if node.name == "powerUp" {
+                if powerUpActive {
+                        addScore(0)
+                    } else {
+                        loseLife()
+                        addScore(-3)
+                    }
+            }else if node.name == "powerUp" {
                 node.removeFromParent()
                 activatePowerUp()
-            }*/
+            }
         }
         
         
@@ -313,20 +320,27 @@ class GameScene: SKScene {
                 spawnBomb()
                 lastBombSpawnTime = currentTime
         }
-        /*
+        
         if powerUpActive && CACurrentMediaTime() > powerUpEndTime {
             powerUpActive = false
-            childNode(withName: "powerUpLabel")?.removeFromParent()
+            childNode(withName: "powerUp")?.removeFromParent()
+            lastPowerUpSpawnTime = currentTime
         }
+
         
-        if Int.random(in: 0...10) == 0 {
+        if !powerUpActive && (currentTime - lastPowerUpSpawnTime > powerUpSpawnInterval) {
             spawnPowerUp()
-        }*/
+            lastPowerUpSpawnTime = currentTime
+        }
         
         for node in children {
             if node.name == "fruit" && node.position.y < -150 {
                 node.removeFromParent()
+                if !powerUpActive{
                 loseLife()
+                }else{
+                    
+                }
             }else if node.name == "bomb" && node.position.y < -150 {
                 node.removeFromParent()
             }
