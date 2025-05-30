@@ -15,7 +15,6 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as? SKView {
-            // Inicia com a tela de início (StartScene)
             let scene = StartScene(size: view.bounds.size)
             scene.scaleMode = .aspectFill
             view.presentScene(scene)

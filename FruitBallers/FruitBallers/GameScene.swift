@@ -169,7 +169,7 @@ class GameScene: SKScene {
     }
     
     func spawnPowerUp() {
-        let powerUp = SKSpriteNode(imageNamed: "powerUp") // Your image asset
+        let powerUp = SKSpriteNode(imageNamed: "powerUp") 
         powerUp.name = "powerUp"
         powerUp.setScale(0.5)
 
