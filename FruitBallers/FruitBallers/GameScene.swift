@@ -219,14 +219,9 @@ class GameScene: SKScene {
     }
     
     func gameOver() {
-        let gameOverLabel = SKLabelNode(fontNamed: "ArialRoundedMTBold")
-        gameOverLabel.fontSize = 50
-        gameOverLabel.fontColor = .white
-        gameOverLabel.text = "Game Over"
-        gameOverLabel.position = CGPoint(x: frame.midX, y: frame.midY)
-        addChild(gameOverLabel)
-
-        isPaused = true
+        let gameOverScene = GameOverScene(size: self.size)
+        gameOverScene.scaleMode = .aspectFill
+        self.view?.presentScene(gameOverScene, transition: .crossFade(withDuration: 0.5))
     }
 
 

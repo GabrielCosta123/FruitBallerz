@@ -30,7 +30,7 @@ class StartScene: SKScene {
         // Botão START
         let startButton = SKLabelNode(text: "Start")
         startButton.name = "startButton"
-        startButton.fontName = "ArialRoundedMTBold"
+        startButton.fontName = "AvenirNext-Bold"
         startButton.fontSize = 40
         startButton.fontColor = .green
         startButton.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -39,7 +39,7 @@ class StartScene: SKScene {
         // Botão QUIT
         let quitButton = SKLabelNode(text: "Quit")
         quitButton.name = "quitButton"
-        quitButton.fontName = "ArialRoundedMTBold"
+        quitButton.fontName = "AvenirNext-Bold"
         quitButton.fontSize = 30
         quitButton.fontColor = .red
         quitButton.position = CGPoint(x: frame.midX, y: frame.midY - 60)
@@ -48,7 +48,7 @@ class StartScene: SKScene {
         // Botão para controlar o som
         let soundButton = SKLabelNode(text: "Sound")
         soundButton.name = "soundButton"
-        soundButton.fontName = "ArialRoundedMTBold"
+        soundButton.fontName = "AvenirNext-Bold"
         soundButton.fontSize = 30
         soundButton.fontColor = .yellow
         soundButton.position = CGPoint(x: frame.midX, y: frame.midY - 120)

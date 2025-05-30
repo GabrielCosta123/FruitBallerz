@@ -17,6 +17,7 @@
 		7D036B3C2DD5D913006B908D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D036B3A2DD5D913006B908D /* LaunchScreen.storyboard */; };
 		7D036B4A2DD5E9E6006B908D /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D036B492DD5E9E6006B908D /* Fruit.swift */; };
 		7D036B4C2DD5EB12006B908D /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D036B4B2DD5EB12006B908D /* PhysicsCategory.swift */; };
+		7D973CBE2DE9A369000152AD /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D973CBD2DE9A369000152AD /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		7D036B3B2DD5D913006B908D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D036B492DD5E9E6006B908D /* Fruit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fruit.swift; sourceTree = "<group>"; };
 		7D036B4B2DD5EB12006B908D /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
+		7D973CBD2DE9A369000152AD /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				7D036B492DD5E9E6006B908D /* Fruit.swift */,
 				7D036B4B2DD5EB12006B908D /* PhysicsCategory.swift */,
 				07493CF52DE85F23004933AD /* Music.mp3 */,
+				7D973CBD2DE9A369000152AD /* GameOverScene.swift */,
 			);
 			path = FruitBallers;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			files = (
 				7D036B4A2DD5E9E6006B908D /* Fruit.swift in Sources */,
 				07493CF22DE855CF004933AD /* StartScene.swift in Sources */,
+				7D973CBE2DE9A369000152AD /* GameOverScene.swift in Sources */,
 				7D036B322DD5D912006B908D /* GameScene.swift in Sources */,
 				7D036B4C2DD5EB12006B908D /* PhysicsCategory.swift in Sources */,
 				7D036B342DD5D912006B908D /* GameViewController.swift in Sources */,
